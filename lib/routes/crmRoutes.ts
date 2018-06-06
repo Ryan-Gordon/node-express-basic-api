@@ -9,6 +9,57 @@ export class Routes {
     
     public routes(app): void {   
 
+        /**
+         * These requests demonstrate delagating the functionallity to a controller
+         */
+        // Create a new contact
+        app.route('/contact')
+        .post(this.contactController.addNewContact);
+
+        // Get all contacts
+        app.route('/contact')
+        .get(this.contactController.getContacts);
+
+        // get a specific contact
+        app.route('/contact/:contactId')
+        .get(this.contactController.getContactWithID)
+
+        // update a specific contact
+        app.route('/contact/:contactId')
+        .put(this.contactController.updateContact)
+
+        // delete a specific contact
+        app.route('/contact/:contactId')
+        .delete(this.contactController.deleteContact)
+
+        app.route('/contact/:contactId')
+        // edit specific contact
+        .get(this.contactController.getContactWithID)
+        .put(this.contactController.updateContact)
+        .delete(this.contactController.deleteContact)
+        app.route('/')
+        .get((req: Request, res: Response) => {            
+            res.status(200).send({
+                message: 'GET request successfulll!!!!'
+            })
+        })
+        
+        // Contact 
+        app.route('/contact') 
+        // GET endpoint 
+        .get((req: Request, res: Response) => {
+        // Get all contacts            
+            res.status(200).send({
+                message: 'GET request successfulll!!!!'
+            })
+        })        
+        // POST endpoint
+        .post((req: Request, res: Response) => {   
+        // Create new contact         
+            res.status(200).send({
+                message: 'POST request successfulll!!!!'
+            })
+        })
 
         // Contact detail
         app.route('/contact/:contactId')
